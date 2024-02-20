@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/estilos.css" />
+    </head>
+    <body>
+        <main>
+            <h1 th:text="${dados.nome}">Fernando Tsuda</h1>
+            <p>Data de nascimento: <span th:text="${dados.dataNascimento}">01/01/1982</span></p>
+            <p>E-mail: <span th:text="${dados.email}">fernando.tsuda@sp.senac.br</span></p>
+            <p>Telefone: <span th:text="${dados.telefone}">(11) 99999-1234</span></p>
+        </main>
+    </body>
+</html>
