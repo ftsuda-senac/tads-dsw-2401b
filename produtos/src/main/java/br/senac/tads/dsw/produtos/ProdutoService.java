@@ -6,8 +6,8 @@ package br.senac.tads.dsw.produtos;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,7 +56,8 @@ public class ProdutoService {
             for (ImagemProduto imgEntity : entity.getImagens()) {
                 ImagemProdutoDto imgDto = new ImagemProdutoDto();
                 imgDto.setId(id);
-                imgDto.setNomeArquivo(Base64.getEncoder().encodeToString(imgEntity.getArquivo()));
+				imgDto.setArquivoBytes(imgEntity.getArquivo());
+				imgDto.setNomeArquivo(imgEntity.getNomeArquivo());
                 imgDto.setOrdenacao(imgEntity.getOrdenacao());
                 imgDto.setPrincipal(imgEntity.isPrincipal());
                 imagens.add(imgDto);

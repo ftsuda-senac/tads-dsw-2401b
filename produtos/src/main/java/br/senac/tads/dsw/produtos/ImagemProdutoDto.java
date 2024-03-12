@@ -4,6 +4,8 @@
  */
 package br.senac.tads.dsw.produtos;
 
+import java.util.Base64;
+
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,6 +20,8 @@ public class ImagemProdutoDto {
     
     private MultipartFile arquivo;
     
+	private byte[] arquivoBytes;
+
     private int ordenacao;
     
     private boolean principal;
@@ -46,7 +50,19 @@ public class ImagemProdutoDto {
         this.arquivo = arquivo;
     }
 
-    public int getOrdenacao() {
+	public byte[] getArquivoBytes() {
+		return arquivoBytes;
+	}
+
+	public String getArquivoBytesBase64() {
+		return Base64.getEncoder().encodeToString(this.arquivoBytes);
+	}
+
+	public void setArquivoBytes(byte[] arquivoBytes) {
+		this.arquivoBytes = arquivoBytes;
+	}
+
+	public int getOrdenacao() {
         return ordenacao;
     }
 

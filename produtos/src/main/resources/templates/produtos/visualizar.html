@@ -12,10 +12,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <h1 data-th-text="${produto.nome}"></h1>
         <h2 data-th-text="${produto.preco}"></h2>
-        <div data-th-each="img : ${produto.imagens}">
-            <div>
-              <img data-th-src="${'data:image/png;base64,' + img.nomeArquivo}" />
+        <p>Imagens carregadas usando bytes da imagem no formato Base64
+        <div style="display: flex">
+            <div data-th-each="img : ${produto.imagens}" >
+              <img data-th-src="${'data:image/png;base64,' + img.arquivoBytesBase64}" />
             </div>
+        </div>
+        <hr />
+        <p>Imagens carregadas via URL com nome do arquivo</p>
+        <div style="display: flex">
+          <div data-th-each="img : ${produto.imagens}" >
+            <img data-th-src="@{/produtos/visualizar/{id}/imagens/{nomeArquivo}(id=${produto.id},nomeArquivo=${img.nomeArquivo})}" />
+          </div>
         </div>
     </body>
 </html>

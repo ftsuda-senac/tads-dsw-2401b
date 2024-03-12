@@ -4,9 +4,13 @@
  */
 package br.senac.tads.dsw.produtos;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ImagemProdutoRepository extends
         JpaRepository<ImagemProduto, Integer> {
+
+	Optional<ImagemProduto> findByProduto_IdAndNomeArquivo(int produtoId, String nomeArquivo);
     
 }
