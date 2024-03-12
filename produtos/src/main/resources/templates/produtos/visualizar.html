@@ -13,8 +13,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <h1 data-th-text="${produto.nome}"></h1>
         <h2 data-th-text="${produto.preco}"></h2>
         <div data-th-each="img : ${produto.imagens}">
-            <img data-th-src="${'data:image/png;base64, '+${img.nomeArquivo}}" />
-            <hr />
+            <div>
+              <img data-th-src="${'data:image/png;base64,' + img.nomeArquivo}" />
+            </div>
         </div>
     </body>
 </html>
