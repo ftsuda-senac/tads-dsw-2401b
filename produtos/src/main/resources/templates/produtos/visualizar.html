@@ -8,10 +8,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+        />
     </head>
     <body>
         <h1 data-th-text="${produto.nome}"></h1>
         <h2 data-th-text="${produto.preco}"></h2>
+        <!--
         <p>Imagens carregadas usando bytes da imagem no formato Base64
         <div style="display: flex">
             <div data-th-each="img : ${produto.imagens}" >
@@ -19,11 +25,56 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             </div>
         </div>
         <hr />
+        -->
         <p>Imagens carregadas via URL com nome do arquivo</p>
-        <div style="display: flex">
-          <div data-th-each="img : ${produto.imagens}" >
-            <img data-th-src="@{/produtos/visualizar/{id}/imagens/{nomeArquivo}(id=${produto.id},nomeArquivo=${img.nomeArquivo})}" />
+        <!-- Slider main container -->
+        <div class="swiper w-50">
+          <!-- Additional required wrapper -->
+          <div class="swiper-wrapper">
+            <!-- Slides -->
+            <div data-th-each="img,status : ${produto.imagens}" class="swiper-slide" >
+              <img data-th-src="@{/produtos/visualizar/{id}/imagens/{nomeArquivo}(id=${produto.id},nomeArquivo=${img.nomeArquivo})}" class="d-block" />
+            </div>
           </div>
+          <!-- If we need pagination -->
+          <div class="swiper-pagination"></div>
+
+          <!-- If we need navigation buttons -->
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+
+          <!-- If we need scrollbar -->
+          <div class="swiper-scrollbar"></div>
         </div>
+        <div id="carouselExample" class="carousel slide w-50">
+          <div class="carousel-inner">
+            <div data-th-each="img,status : ${produto.imagens}" class="carousel-item" data-th-classappend="${status.first}?'active':''" >
+              <img data-th-src="@{/produtos/visualizar/{id}/imagens/{nomeArquivo}(id=${produto.id},nomeArquivo=${img.nomeArquivo})}" class="d-block w-100" />
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <!-- Initialize Swiper -->
+  <script>
+    var swiper = new Swiper(".swiper", {
+      pagination: {
+        el: ".swiper-pagination",
+        dynamicBullets: true
+      },
+      navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev"
+      }
+    });
+  </script>
     </body>
 </html>

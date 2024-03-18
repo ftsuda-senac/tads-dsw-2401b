@@ -6,7 +6,9 @@ package br.senac.tads.dsw.produtos;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,7 @@ public class ProdutoService {
         entity.setNome(dto.getNome());
         entity.setPreco(dto.getPreco());
         
-        List<ImagemProduto> imagensEntities = new ArrayList<>();
+        Set<ImagemProduto> imagensEntities = new LinkedHashSet<>();
         if (dto.getImagens() != null && !dto.getImagens().isEmpty()) {
             for (ImagemProdutoDto imgDto : dto.getImagens()) {
                 ImagemProduto imgEntity = new ImagemProduto();

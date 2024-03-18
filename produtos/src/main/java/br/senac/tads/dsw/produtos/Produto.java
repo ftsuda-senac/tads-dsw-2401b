@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Produto {
     private BigDecimal preco;
     
     @OneToMany(mappedBy = "produto", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    private List<ImagemProduto> imagens;
+    private Set<ImagemProduto> imagens;
 
     public Integer getId() {
         return id;
@@ -55,11 +56,11 @@ public class Produto {
         this.preco = preco;
     }
 
-    public List<ImagemProduto> getImagens() {
+    public Set<ImagemProduto> getImagens() {
         return imagens;
     }
 
-    public void setImagens(List<ImagemProduto> imagens) {
+    public void setImagens(Set<ImagemProduto> imagens) {
         this.imagens = imagens;
     }
     
