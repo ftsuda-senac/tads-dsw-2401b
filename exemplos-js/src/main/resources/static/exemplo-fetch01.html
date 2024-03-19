@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exemplo Fetch API</title>
+    <style>
+        .item {
+            border: 3px dashed #555;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Exemplo Fetch API com sintaxe do Promise</h1>
+        <button id="btnExecutar">Executar</button>
+        <hr />
+        <div id="resultado"></div>
+    </main>
+
+    <script>
+        function acessarDados() {
+            fetch('https://jsonplaceholder.typicode.com/posts/1').then((respHttp) => {
+               if (!respHttp.ok) {
+                   alert ('Erro ao acessar API Web');
+                    return;
+               }
+               respHttp.json().then((dados) => {
+                    const elResultado = document.getElementById('resultado');
+                    elResultado.innerHTML = `
+                        <div class="item">
+                            <h2>${dados.title} (ID: ${dados.id})</h2>
+                            <p>${dados.body}</p>
+                            <p>UserId: ${dados.userId}</p>
+                        </div>`;
+               });
+            });
+        }
+        
+        document.getElementById('btnExecutar').onclick = acessarDados;
+
+    </script>
+</body>
+</html>

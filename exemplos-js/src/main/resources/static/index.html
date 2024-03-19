@@ -10,6 +10,8 @@
         }
         .ex2 {
             color: green;
+            background-color: aliceblue;
+            border: 1px solid red;
         }
     </style>
 </head>
@@ -22,10 +24,40 @@
         <button id="btnEx3">Exemplo 3</button>
         <hr />
         <div id="ex4"></div>
+        <ul id="ex5"></ul>
     </main>
 
     <script>
-
+        let ex1 = document.querySelector('.ex1');
+        ex1.style.color = 'blue';
+        
+        let ex2 = document.querySelector('.ex1:last-of-type');
+        ex2.classList.remove('ex1');
+        ex2.classList.add('ex2');
+        
+        const ex3 = document.querySelector('#btnEx3');
+        ex3.onclick = function() {
+            let nome = prompt('Digite seu nome');
+            if (!nome) {
+                nome = 'visitante';
+            }
+            alert('Seja bem vindo ' + nome);
+        }
+        
+        const ex4 = document.getElementById('ex4');
+        ex4.innerHTML = '<h3>Exemplo 4</h3><p>Texto do exemplo 4</p>';
+        
+        const ex5 = document.getElementById('ex5');
+        for (let i = 1; i <= 1000; i++) {
+            ex5.insertAdjacentHTML('beforeend',
+                '<li><h4>Item ' + i + '</h4><p>Texto texto texto</p></li>');
+        }
+        // pares: 2n ou even
+        // impares: 2n+1 ou odd
+        let ex5Pares = document.querySelectorAll('#ex5 > li:nth-child(even)');
+        for (let elLi of ex5Pares) {
+            elLi.remove();
+        }
     </script>
 </body>
 </html>
