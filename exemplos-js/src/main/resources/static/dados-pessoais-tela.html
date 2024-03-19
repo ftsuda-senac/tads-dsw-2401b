@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exemplo Acesso API interna</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+    <style>
+        .item {
+            border: 3px dashed #555;
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <main id="resultado">
+    </main>
+
+    <script>
+        function acessarDados() {
+            fetch('/dados-pessoais').then((respHttp) => {
+               if (!respHttp.ok) {
+                   alert ('Erro ao acessar API Web');
+                    return;
+               }
+               respHttp.json().then((dados) => {
+                    const elResultado = document.getElementById('resultado');
+                    elResultado.innerHTML = `
+                        <h1>${dados.nome}</h1>
+                        <p>Data de nascimento: ${dados.dataNascimento}</p>
+                        <p>E-mail: ${dados.email}</p>
+                        <p>Telefone: ${dados.telefone}</p>`;
+               });
+            });
+        }
+        
+        // Evento DOMContentLoaded acontece quando HTML é lido totalmente pelo navegador.
+        document.addEventListener('DOMContentLoaded', function() {
+            acessarDados();
+        });
+
+    </script>
+</body>
+</html>
