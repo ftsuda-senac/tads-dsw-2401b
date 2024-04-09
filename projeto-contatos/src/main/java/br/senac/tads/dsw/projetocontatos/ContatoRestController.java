@@ -30,12 +30,12 @@ public class ContatoRestController {
     @Autowired
     private ContatoService service;
     
-    @GetMapping("/lista")
+    @GetMapping
     public List<Contato> listar() {
         return service.findAll();
     }
     
-    @GetMapping("/consulta/{id}")
+    @GetMapping("/{id}")
     public Contato consultar(@PathVariable("id") int id) {
 //        Contato c = service.findById(id);
 //        if (c == null) {
@@ -58,20 +58,19 @@ public class ContatoRestController {
                      "Contato com ID " + id + " não encontrado"));
     }
     
-    @PostMapping("/incluir")
+    @PostMapping
     public ResponseEntity<?> incluir(@RequestBody Contato c) {
         service.save(c);
 //        return ResponseEntity.created(
 //                URI.create("http://localhost:8080/contatos/consultar/" 
 //                        + c.getId())).build();
         URI location = ServletUriComponentsBuilder
-                .fromCurrentContextPath()
-                .path("/contatos/consultar/{id}")
+                .fromCurrentRequest().path("/{id}")
                 .buildAndExpand(c.getId()).toUri();
         return ResponseEntity.created(location).build();
     }
     
-    @PutMapping("/alterar/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<?> alterar(@PathVariable("id") int id,
             @RequestBody Contato c) {
         Optional<Contato> optContato = service.findByIdComOptional(id);
@@ -84,7 +83,7 @@ public class ContatoRestController {
         return ResponseEntity.ok().build();
     }
     
-    @DeleteMapping("/excluir/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> excluir(@PathVariable("id") int id) {
         Optional<Contato> optContato = service.findByIdComOptional(id);
         if (optContato.isEmpty()) {
