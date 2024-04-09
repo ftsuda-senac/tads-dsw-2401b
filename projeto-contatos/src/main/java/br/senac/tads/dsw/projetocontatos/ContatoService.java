@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -41,6 +42,13 @@ public class ContatoService {
     public Contato findById(int id) {
         return contatos.get(id);
     }
+    
+    public Optional<Contato> findByIdComOptional(int id) {
+        return Optional.ofNullable(contatos.get(id));
+    }
+    
+    
+    
     
     public void save(Contato c) {
         if (c.getId() == null) {
