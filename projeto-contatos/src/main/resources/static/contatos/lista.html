@@ -7,6 +7,7 @@
 </head>
 <body>
     <main>
+        <button id="btnExecutar">Carregar dados</button>
         <div>
             <div>
                 <h1>Contatos</h1>
@@ -21,7 +22,7 @@
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="resultado">
                         <tr>
                             <td>1</td>
                             <td>Fulano da Silva</td>
@@ -64,5 +65,36 @@
             </div>
         </div>
     </main>
+    <script>
+        async function acessarDados() {
+            const respHttp = await fetch('http://localhost:8080/contatos');
+            if (!respHttp.ok) {
+                alert ('Erro ao acessar API Web');
+                return;
+            }
+            const dados = await respHttp.json();
+            const elResultado = document.getElementById('resultado');
+            elResultado.innerHTML = '';
+            for (const contato of dados) {
+                elResultado.insertAdjacentHTML('beforeend', `
+                <tr>
+                    <td>${contato.id}</td>
+                    <td>${contato.nome}</td>
+                    <td>${contato.email}</td>
+                    <td>${contato.telefone}</td>
+                    <td>${contato.dataNascimento}</td>
+                    <td>
+                        <a href="#">Visualizar</a>
+                        <a href="#">Alterar</a>
+                        <button>Excluir</button>
+                    </td>
+                </tr>
+                `);
+            }
+        }
+        
+        document.getElementById('btnExecutar').onclick = acessarDados;
+
+    </script>
 </body>
 </html>
