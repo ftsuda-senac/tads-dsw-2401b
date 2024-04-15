@@ -61,7 +61,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <a href="#">Incluir novo</a>
+                <a href="form.html">Incluir novo</a>
             </div>
         </div>
     </main>
@@ -84,8 +84,8 @@
                     <td>${contato.telefone}</td>
                     <td>${contato.dataNascimento}</td>
                     <td>
-                        <a href="#">Visualizar</a>
-                        <a href="#">Alterar</a>
+                        <a href="visualizar.html?id=${contato.id}">Visualizar</a>
+                        <a href="form.html?id=${contato.id}">Alterar</a>
                         <button>Excluir</button>
                     </td>
                 </tr>
@@ -94,6 +94,12 @@
         }
         
         document.getElementById('btnExecutar').onclick = acessarDados;
+  
+//       // Lógica de navegação para outra tela - inadequada, pois já é comportamento padrão da tag a
+//        document.getElementById('linkIncluir').onclick = (evt) => {
+//            evt.preventDefault();
+//            window.location.href = 'form.html';
+//        }
 
     </script>
 </body>

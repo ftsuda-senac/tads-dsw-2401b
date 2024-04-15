@@ -10,7 +10,7 @@
         <div>
             <div>
                 <h1>Incluir contato</h1>
-                <form>
+                <form id="formContato" method="POST" action="URL">
                     <div>
                         <label for="txtNome">Nome</label>
                         <input type="text" name="nome" id="txtNome" />
@@ -35,5 +35,35 @@
             </div>
         </div>
     </main>
+    <script>
+        async function salvar(evt) {
+            evt.preventDefault(); // evitar comportamento padrão do submit do form
+            const elFormulario = document.getElementById('formContato');
+            
+            const dados = {
+                nome: elFormulario.nome.value,
+                email: elFormulario.email.value,
+                telefone: elFormulario.telefone.value,
+                dataNascimento: elFormulario.dataNascimento.value
+            };
+            console.log(JSON.stringify(dados));
+            
+            const respHttp = await fetch('http://localhost:8080/contatos', {
+                method: 'POST',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+            });
+            if (!respHttp.ok) {
+                alert ('Erro ao acessar API Web');
+                return;
+            }
+            alert('Dados gravados com sucesso\nLocation: ' + respHttp.headers.get('location'));
+        }
+        
+        document.getElementById('formContato').onsubmit = salvar;
+        
+    </script>
 </body>
 </html>
