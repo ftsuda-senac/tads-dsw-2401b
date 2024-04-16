@@ -10,22 +10,26 @@
         <div>
             <div>
                 <h1 id="tituloPagina">Incluir contato</h1>
-                <form id="formContato" method="POST" action="URL">
+                <form id="formContato" method="POST" action="URL" novalidate>
                     <div>
                         <label for="txtNome">Nome</label>
-                        <input type="text" name="nome" id="txtNome" />
+                        <input type="text" name="nome" id="txtNome"
+                               maxlength="100" required />
                     </div>
                     <div>
                         <label for="txtEmail">E-mail</label>
-                        <input type="email" name="email" id="txtEmail" />
+                        <input type="email" name="email" id="txtEmail"
+                               maxlength="200" required />
                     </div>
                     <div>
                         <label for="txtTelefone">Telefone</label>
-                        <input type="text" name="telefone" id="txtTelefone" />
+                        <input type="text" name="telefone" id="txtTelefone"
+                               maxlength="15" required />
                     </div>
                     <div>
                         <label for="txtDataNascimento">Data nascimento</label>
-                        <input type="date" name="dataNascimento" id="txtDataNascimento" />
+                        <input type="date" name="dataNascimento" id="txtDataNascimento"
+                               maxlength="10" max="2024-04-15" />
                     </div>
                     <div>
                         <a href="#">Voltar</a>
