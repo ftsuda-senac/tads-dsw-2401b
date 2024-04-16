@@ -9,7 +9,7 @@
     <main>
         <div>
             <div>
-                <h1>Incluir contato</h1>
+                <h1 id="tituloPagina">Incluir contato</h1>
                 <form id="formContato" method="POST" action="URL">
                     <div>
                         <label for="txtNome">Nome</label>
@@ -36,6 +36,13 @@
         </div>
     </main>
     <script>
+        function obterParametro(nomeParametro) {
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            const valorParametro = urlParams.get(nomeParametro);
+            return valorParametro;
+        }
+        
         async function salvar(evt) {
             evt.preventDefault(); // evitar comportamento padrão do submit do form
             const elFormulario = document.getElementById('formContato');
@@ -48,8 +55,16 @@
             };
             console.log(JSON.stringify(dados));
             
-            const respHttp = await fetch('http://localhost:8080/contatos', {
-                method: 'POST',
+            const id = obterParametro('id');
+            let method = 'POST';
+            let url = 'http://localhost:8080/contatos';
+            if (id) {
+                method = 'PUT';
+                url = url + '/' + id;
+            }
+
+            const respHttp = await fetch(url, {
+                method: method,
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -63,6 +78,31 @@
         }
         
         document.getElementById('formContato').onsubmit = salvar;
+       
+        
+        async function carregarContato() {
+            const id = obterParametro('id');
+            if (!id) {
+                return;
+            }
+            document.getElementById('tituloPagina').innerHTML = 'Alterar contato';
+            const respHttp = await fetch('http://localhost:8080/contatos/' + id);
+            if (!respHttp.ok) {
+                alert ('Erro ao acessar API Web');
+                return;
+            }
+            const dados = await respHttp.json();
+            const elFormulario = document.getElementById('formContato');
+            elFormulario.nome.value = dados.nome;
+            elFormulario.email.value = dados.email;
+            elFormulario.telefone.value = dados.telefone;
+            elFormulario.dataNascimento.value = dados.dataNascimento;
+        }
+        
+        // Tenta carregar contato quando HTML é carregado em memória
+        document.addEventListener('DOMContentLoaded', function() {
+           carregarContato(); 
+        });
         
     </script>
 </body>
