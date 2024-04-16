@@ -86,11 +86,22 @@
                     <td>
                         <a href="visualizar.html?id=${contato.id}">Visualizar</a>
                         <a href="form.html?id=${contato.id}">Alterar</a>
-                        <button>Excluir</button>
+                        <button id="btnExcluir${contato.id}" class="btnExcluir" data-contato-id="${contato.id}">Excluir</button>
                     </td>
                 </tr>
                 `);
             }
+            
+            // Lógica para associar o evento de click de cada botão Excluir a função excluir
+            // Colocado desta forma pois a tabela é montada após outro evento JS
+            document.querySelectorAll('.btnExcluir').forEach((btn) => {
+                btn.onclick = excluir;
+            });
+//            // ALTERNATIVA TRADICIONAL AO ARROW FUNCTION ACIMA
+//            const allBtn = document.querySelectorAll('.btnExcluir');
+//            for (let btn of allBtn) {
+//                btn.onclick = excluir;
+//            }
         }
         
         document.getElementById('btnExecutar').onclick = acessarDados;
@@ -100,6 +111,35 @@
 //            evt.preventDefault();
 //            window.location.href = 'form.html';
 //        }
+        
+        async function excluir(evt) {
+            let confirmacao = confirm('Deseja excluir o contato?');
+            if (!confirmacao) {
+                return;
+            }
+            
+            const elButton = evt.target;
+            // OBS: dado contatoId veio do atributo data-contato-id adicionado no button
+            // No JS, converter o 'contato-id' que veio depois do 'data-' do formato
+            // kebab-case para camelCase
+            const id = elButton.dataset.contatoId;
+            
+            if (!id) {
+                return;
+            }
+            
+            const respHttp = await fetch('http://localhost:8080/contatos/' + id, {
+                method: 'DELETE'
+            });
+            if (!respHttp.ok) {
+                alert ('Erro ao acessar API Web');
+                return;
+            }
+            alert('Contato excluido com sucesso');
+            
+            // Recarrega dados para deixar de mostrar contato excluido
+            acessarDados();
+        }
 
     </script>
 </body>
