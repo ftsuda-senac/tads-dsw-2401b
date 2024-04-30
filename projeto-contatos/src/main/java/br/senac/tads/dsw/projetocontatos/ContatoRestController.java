@@ -4,6 +4,7 @@
  */
 package br.senac.tads.dsw.projetocontatos;
 
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -59,7 +60,7 @@ public class ContatoRestController {
     }
     
     @PostMapping
-    public ResponseEntity<?> incluir(@RequestBody Contato c) {
+    public ResponseEntity<?> incluir(@RequestBody @Valid Contato c) {
         service.save(c);
 //        return ResponseEntity.created(
 //                URI.create("http://localhost:8080/contatos/consultar/" 
@@ -72,7 +73,7 @@ public class ContatoRestController {
     
     @PutMapping("/{id}")
     public ResponseEntity<?> alterar(@PathVariable("id") int id,
-            @RequestBody Contato c) {
+            @RequestBody @Valid Contato c) {
         Optional<Contato> optContato = service.findByIdComOptional(id);
         if (optContato.isEmpty()) {
              throw new ResponseStatusException(HttpStatus.NOT_FOUND,

@@ -1,17 +1,29 @@
 package br.senac.tads.dsw.projetocontatos;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
 public class Contato {
     
     private Integer id;
     
+    @NotBlank
+    @Size(max = 100)
     private String nome;
     
+    @NotBlank
+    @Size(max = 200)
+    @Email
     private String email;
     
+    @NotBlank
+    @Size(max = 15)
     private String telefone;
     
+    @PastOrPresent
     private LocalDate dataNascimento;
 
     public Contato() {

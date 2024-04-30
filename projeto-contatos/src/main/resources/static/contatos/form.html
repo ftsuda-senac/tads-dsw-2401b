@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projeto Contatos</title>
+    <style>
+        .msgErro {
+            display: none;
+            color: #c0392b;
+        }
+        .msgErro.visible {
+            display: initial;
+        }
+    </style>
 </head>
 <body>
     <main>
@@ -15,21 +24,25 @@
                         <label for="txtNome">Nome</label>
                         <input type="text" name="nome" id="txtNome"
                                maxlength="100" required />
+                        <p class="msgErro"></p>
                     </div>
                     <div>
                         <label for="txtEmail">E-mail</label>
                         <input type="email" name="email" id="txtEmail"
                                maxlength="200" required />
+                        <p class="msgErro"></p>
                     </div>
                     <div>
                         <label for="txtTelefone">Telefone</label>
                         <input type="text" name="telefone" id="txtTelefone"
                                maxlength="15" required />
+                        <p class="msgErro"></p>
                     </div>
                     <div>
                         <label for="txtDataNascimento">Data nascimento</label>
                         <input type="date" name="dataNascimento" id="txtDataNascimento"
-                               maxlength="10" max="2024-04-15" />
+                               maxlength="10" max="2024-04-29" />
+                        <p class="msgErro"></p>
                     </div>
                     <div>
                         <a href="#">Voltar</a>
@@ -74,8 +87,24 @@
                 },
                 body: JSON.stringify(dados)
             });
+            // Limpar mensagens de erro
+            document.querySelectorAll('.msgErro').forEach((el) => {
+               el.classList.remove('visible');
+               el.textContent = '';
+            });
             if (!respHttp.ok) {
-                alert ('Erro ao acessar API Web');
+                if (respHttp.status === 400) {
+                    const respErro = await respHttp.json();
+                    for (const itemErro of respErro.errors) {
+                        const field = itemErro.field;
+                        const elMsgErro = document.querySelector(`[name="${field}"] ~ p`);
+                        elMsgErro.textContent = itemErro.defaultMessage;
+                        //elMsgErro.style.display = 'initial';
+                        elMsgErro.classList.add('visible');
+                    }
+                } else {
+                    alert ('Erro ao acessar API Web');
+                }
                 return;
             }
             alert('Dados gravados com sucesso\nLocation: ' + respHttp.headers.get('location'));
