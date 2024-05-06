@@ -6,7 +6,7 @@ import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 
-public class Contato {
+public class ContatoDto {
     
     private Integer id;
     
@@ -26,10 +26,10 @@ public class Contato {
     @PastOrPresent
     private LocalDate dataNascimento;
 
-    public Contato() {
+    public ContatoDto() {
     }
 
-    public Contato(Integer id, String nome, String email, String telefone, LocalDate dataNascimento) {
+    public ContatoDto(Integer id, String nome, String email, String telefone, LocalDate dataNascimento) {
         this.id = id;
         this.nome = nome;
         this.email = email;

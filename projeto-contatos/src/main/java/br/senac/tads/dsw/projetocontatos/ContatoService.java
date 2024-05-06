@@ -17,40 +17,40 @@ public class ContatoService {
     
     private static int sequenciaId = 0;
     
-    private Map<Integer, Contato> contatos;
+    private Map<Integer, ContatoDto> contatos;
     
     public ContatoService() {
         contatos = new LinkedHashMap<>();
         int id = ++sequenciaId;
-        contatos.put(id, new Contato(id, "Fulano da Silva", 
+        contatos.put(id, new ContatoDto(id, "Fulano da Silva", 
                 "fulano@email.com.br", "(11) 98765-1234", 
                 LocalDate.parse("2000-10-20")));
         id = ++sequenciaId;
-        contatos.put(id, new Contato(id, "Ciclano de Souza", 
+        contatos.put(id, new ContatoDto(id, "Ciclano de Souza", 
                 "ciclano@email.com.br", "(11) 99001-3344", 
                 LocalDate.parse("1999-05-16")));
         id = ++sequenciaId;
-        contatos.put(id, new Contato(id, "Beltrana dos Santos", 
+        contatos.put(id, new ContatoDto(id, "Beltrana dos Santos", 
                 "beltrana@email.com.br", "(11) 91028-5432", 
                 LocalDate.parse("2001-07-04")));
     }
     
-    public List<Contato> findAll() {
+    public List<ContatoDto> findAll() {
         return new ArrayList<>(contatos.values());
     }
     
-    public Contato findById(int id) {
+    public ContatoDto findById(int id) {
         return contatos.get(id);
     }
     
-    public Optional<Contato> findByIdComOptional(int id) {
+    public Optional<ContatoDto> findByIdComOptional(int id) {
         return Optional.ofNullable(contatos.get(id));
     }
     
     
     
     
-    public void save(Contato c) {
+    public void save(ContatoDto c) {
         if (c.getId() == null) {
             // Considera inclusão de novo contato
             int id = ++sequenciaId;

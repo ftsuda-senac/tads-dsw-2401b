@@ -32,12 +32,12 @@ public class ContatoRestController {
     private ContatoService service;
     
     @GetMapping
-    public List<Contato> listar() {
+    public List<ContatoDto> listar() {
         return service.findAll();
     }
     
     @GetMapping("/{id}")
-    public Contato consultar(@PathVariable("id") int id) {
+    public ContatoDto consultar(@PathVariable("id") int id) {
 //        Contato c = service.findById(id);
 //        if (c == null) {
 //            // Contato não encontrado
@@ -60,7 +60,7 @@ public class ContatoRestController {
     }
     
     @PostMapping
-    public ResponseEntity<?> incluir(@RequestBody @Valid Contato c) {
+    public ResponseEntity<?> incluir(@RequestBody @Valid ContatoDto c) {
         service.save(c);
 //        return ResponseEntity.created(
 //                URI.create("http://localhost:8080/contatos/consultar/" 
@@ -73,8 +73,8 @@ public class ContatoRestController {
     
     @PutMapping("/{id}")
     public ResponseEntity<?> alterar(@PathVariable("id") int id,
-            @RequestBody @Valid Contato c) {
-        Optional<Contato> optContato = service.findByIdComOptional(id);
+            @RequestBody @Valid ContatoDto c) {
+        Optional<ContatoDto> optContato = service.findByIdComOptional(id);
         if (optContato.isEmpty()) {
              throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                      "Contato com ID " + id + " não encontrado");
@@ -86,7 +86,7 @@ public class ContatoRestController {
     
     @DeleteMapping("/{id}")
     public ResponseEntity<?> excluir(@PathVariable("id") int id) {
-        Optional<Contato> optContato = service.findByIdComOptional(id);
+        Optional<ContatoDto> optContato = service.findByIdComOptional(id);
         if (optContato.isEmpty()) {
              throw new ResponseStatusException(HttpStatus.NOT_FOUND,
                      "Contato com ID " + id + " não encontrado");
