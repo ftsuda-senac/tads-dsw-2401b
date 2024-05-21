@@ -27,6 +27,12 @@ public class Usuario implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @Column(length = 100)
+    private String nome;
+
+    @Column(length = 100)
+    private String email;
+    
     @Column(unique = true, nullable = false)
     private String username;
     
@@ -46,6 +52,22 @@ public class Usuario implements UserDetails {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+        public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    
     public String getUsername() {
         return username;
     }
